@@ -1,4 +1,5 @@
 #include "source_map.hpp"
+#include "json.hpp"
 
 #ifndef SASS_CONTEXT
 #include "context.hpp"
@@ -21,6 +22,29 @@ namespace Sass {
     }
     if (!files.empty()) result.erase(result.length() - 1);
     result += "],\n";
+
+    /* Sources Content Start */
+    result += "  \"sourcesContent\": [";
+    for (size_t i = 0; i < files.size(); ++i) {
+
+      JsonNode *triples = json_mkarray();
+
+      json_append_element(triples, json_decode("{\"a\": 3, \"b\": 4}"));
+      json_append_element(triples, json_decode("{\"a\": 5, \"c\": 13}"));
+      json_append_element(triples, json_decode("{\"b\": 24, \"c\": 25}"));
+
+      char *tmp = json_stringify(triples, "\t");
+      puts(tmp);
+      free(tmp);
+
+      json_delete(triples);
+    }
+
+    if (!files.empty()) result.erase(result.length() - 1);
+    result += "],\n";
+    /* Sources Content Start */
+
+
     result += "  \"names\": [],\n";
     result += "  \"mappings\": \"" + serialize_mappings() + "\"\n";
     result += "}";
