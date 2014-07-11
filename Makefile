@@ -10,6 +10,7 @@ SASS_SPEC_PATH ?= sass-spec
 SASSC_BIN = $(SASS_SASSC_PATH)/bin/sassc
 
 SOURCES = \
+	json.cpp \
 	ast.cpp \
 	base64vlq.cpp \
 	bind.cpp \
